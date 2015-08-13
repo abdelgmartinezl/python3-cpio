@@ -1,7 +1,3 @@
-from __future__ import print_function
-from builtins import object
-import atexit
-
 """ cpioarchive: Support for cpio archives
 Copyright (C) 2006 Ignacio Vazquez-Abrams """
 
@@ -10,6 +6,8 @@ Copyright (C) 2006 Ignacio Vazquez-Abrams """
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA """
+
+import atexit
 
 def version():
   """Returns the version number of the module."""
@@ -142,7 +140,7 @@ fileobj -- File object to use (default: open by filename instead)
     if not self.external:
       self.file.close()
 
-  def __next__(self):
+  def next(self):
     """Return the next entry in the archive."""
     if self.closed:
       raise ValueError('next operation on closed file')
@@ -171,7 +169,7 @@ fileobj -- File object to use (default: open by filename instead)
       if not ce.name=="TRAILER!!!":
         self._infos.append(ce)
       else:
-        return
+	return
       self.file.seek((4-(self.file.tell()-istart)%4)%4, 1)
       self.file.seek(self._infos[-1].size, 1)
       self.file.seek((4-(self.file.tell()-istart)%4)%4, 1)
